@@ -1,0 +1,95 @@
+package model;
+
+
+public class Truck {
+    private int id;
+    private String make;
+    private String model;
+    private int year;
+    private double odometer;
+    private double fuelTankCapacity;
+    private TyreType typeType;
+
+    public Truck(String make, String model, int year, double odometer, double fuelTankCapacity, TyreType typeType) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.odometer = odometer;
+        this.fuelTankCapacity = fuelTankCapacity;
+        this.typeType = typeType;
+    }
+
+    public String toString() {
+        String var10000 = this.make;
+        return "Make : " + var10000 + " , Model : " + this.model + " , Year : " + this.year + " , Odometer : " + this.odometer + " , FuelTankCapacity : " + this.fuelTankCapacity + " , Type type : " + String.valueOf(this.typeType);
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getMake() {
+        return this.make;
+    }
+
+    public String getModel() {
+        return this.model;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public double getOdometer() {
+        return this.odometer;
+    }
+
+    public double getFuelTankCapacity() {
+        return this.fuelTankCapacity;
+    }
+
+    public TyreType getTypeType() {
+        return this.typeType;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setOdometer(double odometer) {
+        this.odometer = odometer;
+    }
+
+    public void setFuelTankCapacity(double fuelTankCapacity) {
+        this.fuelTankCapacity = fuelTankCapacity;
+    }
+
+    public void setTypeType(TyreType typeType) {
+        this.typeType = typeType;
+    }
+
+    public Truck() {
+    }
+
+    public Truck(int id, String make, String model, int year, double odometer, double fuelTankCapacity, TyreType typeType) {
+        this.id = id;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.odometer = odometer;
+        this.fuelTankCapacity = fuelTankCapacity;
+        this.typeType = typeType;
+    }
+}
