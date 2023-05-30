@@ -1,0 +1,76 @@
+package model;
+
+import java.time.LocalDate;
+
+public class Checkpoint {
+    private int id;
+    private String title;
+    private boolean longStop;
+    private LocalDate dateArrived;
+
+    public Checkpoint(String title, boolean longStop, LocalDate dateArrived) {
+        this.title = title;
+        this.longStop = longStop;
+        this.dateArrived = dateArrived;
+    }
+
+    public Checkpoint(int id, String title, boolean longStop, LocalDate dateArrived, int destinationId) {
+        this.id = id;
+        this.title = title;
+        this.longStop = longStop;
+        this.dateArrived = dateArrived;
+    }
+
+    public String toString() {
+        String var10000;
+        if (!this.longStop) {
+            var10000 = this.title;
+            return "Checkpoint city:  " + var10000 + "  Type of stop:  short stop  Date: " + String.valueOf(this.dateArrived);
+        } else {
+            var10000 = this.title;
+            return "Checkpoint city:  " + var10000 + "  Type of stop:  long stop  Date: " + String.valueOf(this.dateArrived);
+        }
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public boolean isLongStop() {
+        return this.longStop;
+    }
+
+    public LocalDate getDateArrived() {
+        return this.dateArrived;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setLongStop(boolean longStop) {
+        this.longStop = longStop;
+    }
+
+    public void setDateArrived(LocalDate dateArrived) {
+        this.dateArrived = dateArrived;
+    }
+
+    public Checkpoint() {
+    }
+
+    public Checkpoint(int id, String title, boolean longStop, LocalDate dateArrived) {
+        this.id = id;
+        this.title = title;
+        this.longStop = longStop;
+        this.dateArrived = dateArrived;
+    }
+}
