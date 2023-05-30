@@ -1,0 +1,62 @@
+package fxControllers;
+
+import model.User;
+import utils.DbUtils;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class LoginPage {
+    @FXML
+    public TextField loginField;
+    @FXML
+    public PasswordField passwordField;
+
+    public LoginPage() {
+    }
+
+    public void validate() throws IOException, SQLException {
+        User user = DbUtils.validateLogin(this.loginField.getText(), this.passwordField.getText());
+        if (user != null) {
+            FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("../view/mainPage.fxml"));
+            Parent parent = (Parent)fxmlLoader.load();
+            Main main = (Main)fxmlLoader.getController();
+            main.setInfo(user);
+            Scene scene = new Scene(parent);
+            Stage stage = (Stage)this.loginField.getScene().getWindow();
+            stage.setTitle("EagleSystems");
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            alertDialog("No such user", "User error");
+        }
+
+    }
+    public void register() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("../view/registration-page.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage)this.loginField.getScene().getWindow();
+        stage.setTitle("EagleSystems");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void alertDialog(String message, String header) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Info");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}
+
