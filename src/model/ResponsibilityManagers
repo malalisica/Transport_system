@@ -1,0 +1,11 @@
+package model;
+
+public enum ResponsibilityManagers {
+    MANAGER_1, MANAGER_2;
+
+    private ResponsibilityManagers() {
+
+    }
+
+
+}
