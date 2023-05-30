@@ -1,0 +1,64 @@
+package model;
+
+import javafx.collections.ObservableList;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Comment {
+    private int id;
+    private String commentText;
+    private User user;
+    private LocalDate dateCreated;
+    private LocalDate dateModified;
+    private List<Comment> replies;
+    private Forum linkedTitle;
+    private Comment linkedComment;
+    private User linkedUser;
+
+    public Comment(String commentText, Forum linkedTitle, ObservableList<Comment> commentList) {
+        this.commentText = commentText;
+        this.linkedTitle = linkedTitle;
+        this.linkedComment = getLinkedComment();
+
+    }
+
+    public String toString() {
+        return commentText;
+    }
+
+    public Comment(Forum linkedTitle) {
+        this.linkedTitle = linkedTitle;
+    }
+
+    public Comment(String commentText, User user) {
+        this.commentText = commentText;
+        this.user = user;
+        this.dateCreated = LocalDate.now();
+    }
+
+    public Comment(String commentText) {
+        this.commentText = commentText;
+        this.replies = new ArrayList<>();
+    }
+
+    public List<Comment> getReplies() {
+        return replies;
+    }
+
+    public void addChildComment(Comment childComment) {
+        replies.add(childComment);
+    }
+
+
+
+}
