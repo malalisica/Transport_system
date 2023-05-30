@@ -1,0 +1,119 @@
+package fxControllers;
+
+import model.Driver;
+import model.Manager;
+import utils.DbUtils;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+
+public class RegistrationPage implements Initializable {
+    public TextField loginField;
+    public TextField nameField;
+    public TextField surnameField;
+    public PasswordField pswField;
+    public PasswordField repFswField;
+    public DatePicker bDateField;
+    public TextField managerEmailField;
+    public TextField phoneNumField;
+    public RadioButton radioD;
+    public RadioButton radioM;
+    public CheckBox isAdminChk;
+    public DatePicker medCertField;
+    public TextField medCertNum;
+    public TextField driverLicenseField;
+
+
+
+    public void initialize(URL location, ResourceBundle resources) {
+        this.radioM.setSelected(true);
+        this.isAdminChk.setVisible(false);
+        this.disableFields();
+    }
+
+    public void createNewUser() throws IOException, SQLException {
+        Connection connection = DbUtils.connectToDb();
+        if (!this.checkUserExistence(connection)) {
+            PreparedStatement preparedStatement;
+            if (this.radioD.isSelected()) {
+                preparedStatement = connection.prepareStatement("INSERT INTO drivers (`login`,`password`,`name`,`surname`,`birth_date`,`med_date`,`med_num`,`driver_license`,`phone_num`)VALUES (?,?,?,?,?,?,?,?,?)");
+                Driver driver = new Driver(this.loginField.getText(), this.pswField.getText(), this.nameField.getText(), this.surnameField.getText(), LocalDate.parse(((LocalDate)this.bDateField.getValue()).toString()), this.phoneNumField.getText(), LocalDate.parse(((LocalDate)this.medCertField.getValue()).toString()), this.medCertNum.getText(), this.driverLicenseField.getText());
+                preparedStatement.setString(1, driver.getLogin());
+                preparedStatement.setString(2, driver.getPassword());
+                preparedStatement.setString(3, driver.getName());
+                preparedStatement.setString(4, driver.getSurname());
+                preparedStatement.setDate(5, Date.valueOf(driver.getBirthDate()));
+                preparedStatement.setDate(6, Date.valueOf(driver.getMedCertificateDate()));
+                preparedStatement.setString(7, driver.getMedCertificateNumber());
+                preparedStatement.setString(8, driver.getDriverLicense());
+                preparedStatement.setString(9, driver.getPhoneNum());
+                preparedStatement.execute();
+            } else {
+                preparedStatement = connection.prepareStatement("INSERT INTO managers (`login`,`password`,`name`,`surname`,`birth_date`,`phone_num`,`email`,`employment_date`,`is_admin`)VALUES (?,?,?,?,?,?,?,?,?)");
+                Manager manager = new Manager(this.loginField.getText(), this.pswField.getText(), this.nameField.getText(), this.surnameField.getText(), LocalDate.parse(((LocalDate)this.bDateField.getValue()).toString()), this.phoneNumField.getText(), this.managerEmailField.getText());
+                preparedStatement.setString(1, manager.getLogin());
+                preparedStatement.setString(2, manager.getPassword());
+                preparedStatement.setString(3, manager.getName());
+                preparedStatement.setString(4, manager.getSurname());
+                preparedStatement.setDate(5, Date.valueOf(manager.getBirthDate()));
+                preparedStatement.setString(6, manager.getPhoneNum());
+                preparedStatement.setString(7, manager.getEmail());
+                preparedStatement.setDate(8, Date.valueOf(manager.getEmploymentDate()));
+                preparedStatement.setBoolean(9, manager.isAdmin());
+                preparedStatement.execute();
+            }
+
+            DbUtils.disconnect(connection, preparedStatement);
+            this.returnToPrevious();
+        }
+    }
+
+    private boolean checkUserExistence(Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("(SELECT * from managers where `login` = ?) UNION (SELECT * from drivers where `login` = ?);");
+        preparedStatement.setString(1, this.loginField.getText());
+        preparedStatement.setString(2, this.loginField.getText());
+        ResultSet rs = preparedStatement.executeQuery();
+        if (rs.next()) {
+            LoginPage.alertDialog("Error", "User error");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void returnToPrevious() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("../view/login-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = (Stage)this.loginField.getScene().getWindow();
+        stage.setTitle("EagleSyst");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void disableFields() {
+        if (this.radioD.isSelected()) {
+            this.medCertField.setDisable(false);
+            this.medCertNum.setDisable(false);
+            this.driverLicenseField.setDisable(false);
+            this.managerEmailField.setDisable(true);
+        } else {
+            this.medCertField.setDisable(true);
+            this.medCertNum.setDisable(true);
+            this.driverLicenseField.setDisable(true);
+            this.managerEmailField.setDisable(false);
+        }
+
+    }
+
+
+}
+
