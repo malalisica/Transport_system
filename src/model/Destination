@@ -1,0 +1,155 @@
+package model;
+
+
+import java.time.LocalDate;
+import java.util.List;
+
+public class Destination {
+    private int id;
+    private String startCity;
+    private long startLn;
+    private long startLat;
+    private String endCity;
+    private long endLn;
+    private long endLat;
+    private LocalDate dateCreated;
+    private List<Checkpoint> checkpointList;
+    private Truck truck;
+    private Manager responsibleManagers;
+    private Cargo cargo;
+
+    public Destination(int id, String startCity, long startLn, long startLat, String endCity, long endLn, long endLat, int truckId, int responsibleManagersId, int cargoId) {
+        this.id = id;
+        this.startCity = startCity;
+        this.startLn = startLn;
+        this.startLat = startLat;
+        this.endCity = endCity;
+        this.endLn = endLn;
+        this.endLat = endLat;
+    }
+
+    public Destination(String startCity, long startLn, long startLat, String endCity, long endLn, long endLat, Truck truck, Manager responsibleManagers, Cargo cargo) {
+        this.startCity = startCity;
+        this.startLn = startLn;
+        this.startLat = startLat;
+        this.endCity = endCity;
+        this.endLn = endLn;
+        this.endLat = endLat;
+        this.truck = truck;
+        this.responsibleManagers = responsibleManagers;
+        this.cargo = cargo;
+    }
+
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getStartCity() {
+        return this.startCity;
+    }
+
+    public long getStartLn() {
+        return this.startLn;
+    }
+
+    public long getStartLat() {
+        return this.startLat;
+    }
+
+    public String getEndCity() {
+        return this.endCity;
+    }
+
+    public long getEndLn() {
+        return this.endLn;
+    }
+
+    public long getEndLat() {
+        return this.endLat;
+    }
+
+    public LocalDate getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public List<Checkpoint> getCheckpointList() {
+        return this.checkpointList;
+    }
+
+    public Truck getTruck() {
+        return this.truck;
+    }
+
+    public Manager getResponsibleManagers() {
+        return this.responsibleManagers;
+    }
+
+    public Cargo getCargo() {
+        return this.cargo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setStartCity(String startCity) {
+        this.startCity = startCity;
+    }
+
+    public void setStartLn(long startLn) {
+        this.startLn = startLn;
+    }
+
+    public void setStartLat(long startLat) {
+        this.startLat = startLat;
+    }
+
+    public void setEndCity(String endCity) {
+        this.endCity = endCity;
+    }
+
+    public void setEndLn(long endLn) {
+        this.endLn = endLn;
+    }
+
+    public void setEndLat(long endLat) {
+        this.endLat = endLat;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setCheckpointList(List<Checkpoint> checkpointList) {
+        this.checkpointList = checkpointList;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
+
+    public void setResponsibleManagers(Manager responsibleManagers) {
+        this.responsibleManagers = responsibleManagers;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+
+    public Destination(int id, String startCity, long startLn, long startLat, String endCity, long endLn, long endLat, LocalDate dateCreated, LocalDate dateUpdated, List<Checkpoint> checkpointList, Truck truck, Manager responsibleManagers, Cargo cargo) {
+        this.id = id;
+        this.startCity = startCity;
+        this.startLn = startLn;
+        this.startLat = startLat;
+        this.endCity = endCity;
+        this.endLn = endLn;
+        this.endLat = endLat;
+        this.dateCreated = dateCreated;
+        this.checkpointList = checkpointList;
+        this.truck = truck;
+        this.responsibleManagers = responsibleManagers;
+        this.cargo = cargo;
+    }
+}
